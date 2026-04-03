@@ -90,8 +90,8 @@
         header.appendChild(el('span', { className: 'kpb-column-count' }, String(colCards.length)));
 
         if (CAN_EDIT) {
-            header.appendChild(el('button', { className: 'kpb-col-btn edit', title: 'Rename', onClick: (e) => { e.stopPropagation(); renameColumn(col); } }, '✏️'));
-            header.appendChild(el('button', { className: 'kpb-col-btn delete', title: 'Delete column', onClick: (e) => { e.stopPropagation(); deleteColumn(col); } }, '✕'));
+            header.appendChild(el('button', { className: 'kpb-col-btn edit', title: 'Rename', onClick: (e) => { e.stopPropagation(); renameColumn(col); } }, 'Rename'));
+            header.appendChild(el('button', { className: 'kpb-col-btn delete', title: 'Delete column', onClick: (e) => { e.stopPropagation(); deleteColumn(col); } }, 'X'));
         }
 
         // Column drag (reorder)
@@ -187,7 +187,7 @@
         if (card.image_url) {
             cardEl.appendChild(el('img', { className: 'kpb-card-image', src: card.image_url, alt: card.title || '', loading: 'lazy' }));
         } else {
-            cardEl.appendChild(el('div', { className: 'kpb-card-no-image' }, '🖼'));
+            cardEl.appendChild(el('div', { className: 'kpb-card-no-image' }, 'No image'));
         }
 
         const body = el('div', { className: 'kpb-card-body' });
@@ -208,13 +208,13 @@
             actions.appendChild(el('button', {
                 className: 'kpb-card-btn download',
                 onClick: (e) => { e.stopPropagation(); downloadImage(card); },
-            }, '⬇ Download'));
+            }, 'Download'));
         }
 
         actions.appendChild(el('button', {
             className: 'kpb-card-btn add',
             onClick: (e) => { e.stopPropagation(); toggleAddCard(card); },
-        }, isAdded ? '✓ Added' : '+ Add'));
+        }, isAdded ? 'Added' : 'Add'));
 
         body.appendChild(actions);
 
@@ -224,11 +224,11 @@
             manage.appendChild(el('button', {
                 className: 'kpb-card-btn edit',
                 onClick: (e) => { e.stopPropagation(); openCardModal(card.column_id, card); },
-            }, '✏ Edit'));
+            }, 'Edit'));
             manage.appendChild(el('button', {
                 className: 'kpb-card-btn remove',
                 onClick: (e) => { e.stopPropagation(); deleteCard(card); },
-            }, '🗑 Delete'));
+            }, 'Delete'));
             body.appendChild(manage);
         }
 
@@ -254,12 +254,12 @@
         btns.appendChild(el('button', {
             className: 'kpb-panel-btn copy',
             onClick: () => copyPrompt(text),
-        }, '📋 Copy'));
+        }, 'Copy'));
 
         btns.appendChild(el('button', {
             className: 'kpb-panel-btn clear',
             onClick: clearPrompt,
-        }, '✕ Clear'));
+        }, 'Clear'));
 
         panel.appendChild(btns);
         return panel;
@@ -283,9 +283,9 @@
         navigator.clipboard.writeText(text).then(() => {
             const btn = app.querySelector('.kpb-panel-btn.copy');
             if (btn) {
-                btn.textContent = '✓ Copied!';
+                btn.textContent = 'Copied!';
                 btn.classList.add('copied');
-                setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 1500);
+                setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1500);
             }
         });
     }
@@ -384,7 +384,7 @@
             if (imageUrl) {
                 picker.appendChild(el('img', { src: imageUrl, alt: 'Preview' }));
             } else {
-                picker.appendChild(el('div', { className: 'kpb-image-picker-text' }, '📷 Click to select image'));
+                picker.appendChild(el('div', { className: 'kpb-image-picker-text' }, 'Click to select image'));
             }
         };
         pickerContent();
